@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple Bible reading, search, favorites, notes and prayer app.">
+  <title>Bible — Read, Reflect, Remember</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <button class="brand" data-page="home" aria-label="Go home">📖 <span>Bible</span></button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button data-page="home">Home</button>
+        <button data-page="browse">Bible</button>
+        <button data-page="favorites">❤️ Favorites</button>
+        <button data-page="prayers">🙏 Prayers</button>
+        <button data-page="settings">⚙️ Settings</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <p class="eyebrow">SCRIPTURE • REFLECTION • PRAYER</p>
+        <h1>Read. Reflect. Remember.</h1>
+        <p class="muted">Search Scripture, save meaningful verses, keep private notes, and write your prayers.</p>
+      </div>
+
+      <form id="search-form" class="search-bar">
+        <input id="search-input" autocomplete="off" placeholder="Try John 3:16, Psalm 23, or love">
+        <button class="primary" type="submit">🔎 Search</button>
+        <button type="button" id="random-button">🎲 Random</button>
+      </form>
+
+      <div id="search-results" aria-live="polite"></div>
+
+      <div class="grid three">
+        <article class="card">
+          <div class="card-heading"><h2>📅 Daily Verse</h2></div>
+          <div id="daily-verse"><p class="muted">Loading…</p></div>
+        </article>
+        <article class="card">
+          <div class="card-heading"><h2>🏷️ Topics</h2></div>
+          <div id="topics" class="chips"></div>
+        </article>
+        <article class="card">
+          <div class="card-heading"><h2>🕘 Recently Viewed</h2></div>
+          <div id="recent-list"></div>
+        </article>
+      </div>
+
+      <div class="card feature-card">
+        <div>
+          <p class="eyebrow">COMMUNITY</p>
+          <h2>Help improve the app</h2>
+          <p class="muted">Report a verse issue, suggest a feature, or send general feedback.</p>
+        </div>
+        <div class="actions">
+          <button class="primary" data-action="feedback">💬 Give Feedback</button>
+          <button data-action="admin">🔐 Feedback From Others</button>
+          <button data-action="problem">⚠️ Report a Problem</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-browse" class="page">
+      <div class="page-title"><div><p class="eyebrow">BROWSE</p><h1>Bible Books</h1></div></div>
+      <p class="muted">Choose a book to start reading. Chapter reading is available from the book view.</p>
+      <div class="testament-tabs">
+        <button class="active" data-testament="old">Old Testament</button>
+        <button data-testament="new">New Testament</button>
+      </div>
+      <div id="books-grid" class="book-grid"></div>
+      <div id="chapter-reader" class="chapter-reader hidden"></div>
+    </section>
+
+    <section id="page-favorites" class="page">
+      <div class="page-title"><div><p class="eyebrow">SAVED</p><h1>❤️ Favorites</h1></div><button class="danger-outline" id="clear-favorites">Clear all</button></div>
+      <div id="favorites-list" class="list"></div>
+    </section>
+
+    <section id="page-prayers" class="page">
+      <div class="page-title"><div><p class="eyebrow">PRIVATE</p><h1>🙏 Personal Prayers</h1></div></div>
+      <div class="card">
+        <label for="prayer-text">Write a prayer</label>
+        <textarea id="prayer-text" placeholder="Write a private prayer…"></textarea>
+        <div class="actions"><button class="primary" id="save-prayer">Save Prayer</button></div>
+      </div>
+      <div id="prayer-list" class="list top-gap"></div>
+    </section>
+
+    <section id="page-settings" class="page">
+      <div class="page-title"><div><p class="eyebrow">PERSONALIZE</p><h1>⚙️ Settings</h1></div></div>
+      <div class="grid two">
+        <article class="card">
+          <h2>Appearance</h2>
+          <label for="theme-select">Theme</label>
+          <select id="theme-select">
+            <option value="auto">Automatic</option><option value="light">Light</option><option value="dark">Dark</option>
+          </select>
+          <label for="font-size">Text size</label>
+          <input id="font-size" type="range" min="16" max="28" value="20">
+          <p class="muted small">Changes reading text size.</p>
+        </article>
+        <article class="card">
+          <h2>Translation</h2>
+          <select id="translation-select">
+            <option value="KJV">King James Version (KJV)</option>
+          </select>
+          <p class="muted small">This GitHub Pages version uses the public-domain KJV through Bible API. Check licensing before adding other translations.</p>
+        </article>
+        <article class="card">
+          <h2>Privacy & saved data</h2>
+          <p class="muted">Favorites, notes, history and prayers are stored in this browser using localStorage.</p>
+          <button class="danger-outline" id="clear-data">Clear saved data</button>
+        </article>
+        <article class="card">
+          <h2>About the app</h2>
+          <p>A lightweight Bible study app for reading Scripture, saving verses, taking private notes and keeping prayers.</p>
+          <p class="small muted">Bible text: KJV, public domain. API: Bible API. This app is a static GitHub Pages frontend.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="page-feedback" class="page">
+      <div class="page-title"><div><p class="eyebrow">COMMUNITY</p><h1>💬 Give Feedback</h1></div><button data-page="home">Close</button></div>
+      <form id="feedback-form" class="card form-card">
+        <label for="feedback-category">Category</label>
+        <select id="feedback-category">
+          <option>Verse information</option><option>Translation issue</option><option>App bug</option><option>Feature suggestion</option><option>General feedback</option>
+        </select>
+        <label for="feedback-verse">Verse (optional)</label>
+        <input id="feedback-verse" placeholder="e.g. John 3:16">
+        <label for="feedback-message">Message</label>
+        <textarea id="feedback-message" required placeholder="Tell us what you noticed…"></textarea>
+        <button class="primary" type="submit">Submit feedback</button>
+        <p class="small muted">Static GitHub Pages cannot securely store shared feedback. This demo saves feedback locally. See README for connecting a real backend.</p>
+      </form>
+    </section>
+
+    <section id="page-problem" class="page">
+      <div class="page-title"><div><p class="eyebrow">SUPPORT</p><h1>⚠️ Report a Problem</h1></div><button data-page="home">Close</button></div>
+      <form id="problem-form" class="card form-card">
+        <label for="problem-type">Problem type</label>
+        <select id="problem-type"><option>Incorrect verse information</option><option>Technical problem</option><option>Other</option></select>
+        <label for="problem-verse">Verse or page (optional)</label>
+        <input id="problem-verse" placeholder="e.g. John 3:16">
+        <label for="problem-message">What happened?</label>
+        <textarea id="problem-message" required placeholder="Describe the problem…"></textarea>
+        <button class="primary" type="submit">Submit report</button>
+      </form>
+    </section>
+
+    <section id="page-admin" class="page">
+      <div class="page-title"><div><p class="eyebrow">ADMIN</p><h1>🔐 Feedback From Others</h1></div><button data-page="home">Close</button></div>
+      <div id="admin-content"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>📖 Bible App</span>
+    <button class="link-button" data-page="settings">About & Settings</button>
+    <button class="link-button" data-action="admin">Admin</button>
+  </footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
